@@ -1,1 +1,2 @@
 # API-Stock-Signalling
+    Note
