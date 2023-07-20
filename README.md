@@ -14,8 +14,9 @@ IFTTT stands for “If This Then That” and it’s an automation platform that 
 - Write a script that returns the Tesla stock price. This will involve making an API request.
 - Set up a IFTTT account and applet. This will be accessible via the mobile app which allows you to trigger the webhook service provided by IFTTT.
 - You will need to configure the 'webhooks' service to receive web requests. You can find more details here: https://ifttt.com/maker_webhooks. 
-- Python application makes a HTTP request (https://cs.fyi/guide/http-in-depth) to 
+- From here you can write an application that utilises the requests package to make POST and GET requests.
 
 ## Main Considerations
 - Choose an automation approach. Are you planning on using IFTTT or another approach?
 - What API are you going to use?
+- Remember, this is a proposed workflow. If you believe you have a more efficient approach please reach out to the Academy Team. 
