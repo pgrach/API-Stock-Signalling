@@ -6,7 +6,7 @@ A small consultancy who is currently delivering client work for a major bank wan
 Write a real time application that monitors the price then notifies the user when the price falls below £194.50 GBP.
 ## Brief
 To do this, the client has recommended using a popular automation website called IFTTT: https://ifttt.com/. They are willing to use a different provider or solution (use those consultancy skills!) if you believe there is a better option.
-### IFTTT Applet
+#### IFTTT Applet
 A IFTTT Applet consists of two parts: a trigger and an action.
 
 ## Main Considerations
