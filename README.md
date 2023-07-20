@@ -17,6 +17,6 @@ IFTTT stands for “If This Then That” and it’s an automation platform that 
 - From here you can write an application that utilises the requests package to make POST and GET requests.
 
 ## Main Considerations
-- Choose an automation approach. Are you planning on using IFTTT or another approach?
-- What API are you going to use?
+- Choose an automation approach. Are you planning on using IFTTT or another workflow?
+- What API are you going to use? You can use this as a starting point: https://github.com/public-apis/public-apis
 - Remember, this is a proposed workflow. If you believe you have a more efficient approach please reach out to the Academy Team. 
