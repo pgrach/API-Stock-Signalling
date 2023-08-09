@@ -19,4 +19,12 @@ IFTTT stands for “If This Then That” and it’s an automation platform that 
 ## Main Considerations
 - Choose an automation approach. Are you planning on using IFTTT or another workflow?
 - What API are you going to use? You can use this as a starting point: https://github.com/public-apis/public-apis
-- Remember, this is a proposed workflow. If you believe you have a more efficient approach please reach out to the Academy Team. 
+- Remember, this is a proposed workflow. If you believe you have a more efficient approach please reach out to the Academy Team.
+
+## Assessment
+For the assessment, you will have a 15 minute technical interview. This will consist of a strict 5 minute presentation on your technical solution. There is no need to create slides for this but you may want to demo your code. For the second half of the session, you will be asked technical questions related to the project. You will be assessed on: 
+- Project Complexity
+- Brief Completness i.e. have you managed to meet the client brief?
+- Coding Standards
+
+Good Luck!
