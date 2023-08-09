@@ -21,7 +21,7 @@ IFTTT stands for “If This Then That” and it’s an automation platform that 
 - What API are you going to use? You can use this as a starting point: https://github.com/public-apis/public-apis
 - Remember, this is a proposed workflow. If you believe you have a more efficient approach please reach out to the Academy Team.
 #### Requirements Gathering
-The start to any project is to make sure you have clear and well-defined requirements for your project. Most projects start with a vague idea of what the stakeholder wants, and as a consultant, we will never have as much knowledge about their problem/business context as they do. Therefore, we need to get as much information out of them as possible, as they will subconsciously assume that we know everything. For this project, Alex Naylor will be the stakeholders.
+The start to any project is to make sure you have clear and well-defined requirements for your project. Most projects start with a vague idea of what the stakeholder wants, and as a consultant, we will never have as much knowledge about their problem/business context as they do. Therefore, we need to get as much information out of them as possible, as they will subconsciously assume that we know everything. For this project, Alex Naylor will be the stakeholder.
 
 If you don't know the answer to any question then you should always ask - NEVER ASSUME. This will only risk the accuracy of your work and end up having to do everything all over again if you wrongly assume.
 
