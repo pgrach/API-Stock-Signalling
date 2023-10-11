@@ -2,9 +2,9 @@ following YAGNI guideline indtead of calling API
 we import yfinance library keeping the codebase simpler and more focused in the task.
 
 using smtplib library allows to send email notifications directly 
-from the Programme running lically. it is a straightforward solution to meet email notification needs. 
-integrating IFTTT would involve setting up an applet to handle email notifications, setting up additional steps
-to trigger the applet. Hence, smtplib could be seen as a more direct and controllable solution for this use case.
+from the Programme running locally. it is a straightforward solution to meet email notification needs. 
+alternative of IFTTT would involve setting up an applet to handle the task, setting up additional steps
+to trigger the applet. smtplib is a more direct and controllable solution for this use case.
 # Create & use app passwords
 
 To help keep your account secure, use "Sign in with Google" to connect apps to your Google Account
