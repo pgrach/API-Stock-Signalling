@@ -1,5 +1,5 @@
-following YAGNI guideline indtead of API 
-we import yfinance library to keep the codebase simpler
+following YAGNI guideline indtead of calling API 
+we import yfinance library keeping the codebase simpler and more focused in the task.
 
 # Create & use app passwords
 
