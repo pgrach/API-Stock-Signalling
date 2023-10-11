@@ -10,36 +10,16 @@ from dotenv import load_dotenv
 success = load_dotenv('C:\\Users\\PavelGrachev\\OneDrive - JCW Resourcing\\Desktop\\github\\YagniStocks\\.env')
 print(f'Success: {success}')
 
-email_pass = os.getenv('EMAIL_PASS')
-if email_pass is None:
-    print("EMAIL_PASS environment variable not found")
-
 # Initialize currency converter
 currency_converter = CurrencyRates()
 
 # Define the stocks to monitor and the email details
-stocks_to_monitor = ["AAPL", "MSFT", "GOOGL", "AMZN", "FB"]
+stocks_to_monitor = ["AAPL", "MSFT", "GOOGL", "TSLA", "NKE"]
 previous_prices = {ticker: 0 for ticker in stocks_to_monitor}
-email_user = 'pavel.grachev@xandertalent.com'
+email_user = 'gpu2003@gmail.com'
 email_pass = os.environ['EMAIL_PASS']
-
-email_pass = os.getenv('EMAIL_PASS')
 if email_pass is None:
     print("EMAIL_PASS environment variable not found")
-
-def test_email():
-    try:
-        with smtplib.SMTP('smtp.gmail.com', 587) as server:
-            server.starttls()
-            server.login(email_user, email_pass)
-            subject = 'Test Email'
-            body = 'This is a test email from your stock monitoring script.'
-            msg = f'Subject: {subject}\n\n{body}'
-            server.sendmail(email_user, 'gpu2003@gmail.com', msg)
-            print('Test email sent successfully')
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
 
 def check_stock_prices():
     for ticker in stocks_to_monitor:
@@ -53,7 +33,7 @@ def check_stock_prices():
         previous_price_gbp = currency_converter.convert('USD', 'GBP', previous_prices[ticker])
         
         # Compare the current price with the previous price
-        if previous_price_gbp - current_price_gbp >= 0.25:
+        if previous_price_gbp - current_price_gbp >= 0.01:
             send_notification(ticker, current_price_gbp)
         previous_prices[ticker] = current_price_usd  # Store the price in USD for the next check
 
