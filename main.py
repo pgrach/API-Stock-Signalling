@@ -1,3 +1,4 @@
+#Import the necessary libraries and modules
 import yfinance as yf
 import smtplib
 import schedule
@@ -7,9 +8,8 @@ from forex_python.converter import CurrencyRates
 from dotenv import load_dotenv
 from statistics import mean
 
-# Load environment variables from .env file
-success = load_dotenv('C:\\Users\\PavelGrachev\\OneDrive - JCW Resourcing\\Desktop\\github\\YagniStocks\\.env')
-print(f'Success: {success}')
+# Load environment variable from .env file
+load_dotenv()
 
 # Initialize currency converter
 currency_converter = CurrencyRates()

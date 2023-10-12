@@ -5,7 +5,9 @@ Following YAGNI principle we believe the requirement of sending notification via
 Considering further versions, IFTTT would be chosen for additional web notification solutions, such as Facebook, Telegram, SMS etc. 
 
 # Why yfinance over API
-yfinance library provides a simpler interface for fetching stock data compared to making HTTP requests to an API, parsing the responses, and handling errors. Given that we are planning to run the script every minute, this would total to a max of 1,440 requests per day (assuming one request per run). This falls well within the documented rate limits for the public API based on IP address (48,000 requests per day)
+yfinance is a library for fetching market data from Yahoo Finance. It provides a simpler interface for fetching stock data compared to making HTTP requests to an API, parsing the responses, and handling errors. 
+
+Given that we are planning to run the script every minute, this would total to a max of 1,440 requests per day (assuming one request per run). This falls well within the documented rate limits for the public API based on IP address (48,000 requests per day)
 
 # Create & use app passwords
 
