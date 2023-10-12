@@ -1,6 +1,6 @@
 
 # Why smtplib over IFTTT
-Following YAGNI principle we believe the requirement of sending notification via email provides just what we need. Thus, smtplib offers more direct and controllable solution for this use case, also it is free.
+Following YAGNI principle we believe the requirement of sending notification via email provides exactly what we need. For this task smtplib offers more direct and controllable solution, also it is free.
 
 Considering further versions, IFTTT would be chosen for additional web notification solutions, such as Facebook, Telegram, SMS etc. 
 
