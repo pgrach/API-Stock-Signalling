@@ -5,6 +5,7 @@ import time
 import os
 from forex_python.converter import CurrencyRates
 from dotenv import load_dotenv
+from statistics import mean
 
 # Load environment variables from .env file
 success = load_dotenv('C:\\Users\\PavelGrachev\\OneDrive - JCW Resourcing\\Desktop\\github\\YagniStocks\\.env')
@@ -24,6 +25,19 @@ if email_pass is None:
 def check_stock_prices():
     for ticker in stocks_to_monitor:
         stock = yf.Ticker(ticker)
+
+        # Fetch the last 7 days of price data and calculate the average closing price
+        hist = stock.history(period="7d")
+        seven_day_avg = mean(hist["Close"])
+
+        # Get today's opening price
+        today_open = hist.iloc[-1]["Open"]
+
+        # Compare today's opening price with the 7-day average price
+        if today_open < seven_day_avg:
+            send_notification(ticker, today_open)
+        
+        # Fetch the current price 
         current_price_usd = stock.info['currentPrice']
         
         # Convert the price from USD to GBP
@@ -35,7 +49,9 @@ def check_stock_prices():
         # Compare the current price with the previous price
         if previous_price_gbp - current_price_gbp >= 0.01:
             send_notification(ticker, current_price_gbp)
-        previous_prices[ticker] = current_price_usd  # Store the price in USD for the next check
+        
+        # Store the price in USD for the next check
+        previous_prices[ticker] = current_price_usd
 
 def send_notification(ticker, price):
     with smtplib.SMTP('smtp.gmail.com', 587) as server:
