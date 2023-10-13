@@ -1,3 +1,8 @@
+"""
+This script monitors specified stocks, compares their prices with historical averages,
+and sends email notifications when certain conditions are met.
+"""
+
 #Import the necessary libraries and modules
 import yfinance as yf
 import smtplib
@@ -15,12 +20,15 @@ load_dotenv()
 currency_converter = CurrencyRates()
 
 # Define the stocks to monitor and the email details
-stocks_to_monitor = ["AAPL", "MSFT", "GOOGL", "TSLA", "NKE"]
+stocks_to_monitor = ["LSEG.L", "AZN.L", "RIO.L"]
 previous_prices = {ticker: 0 for ticker in stocks_to_monitor}
-email_user = 'gpu2003@gmail.com'
+
+#Set-up your own environment .env (README)
+email_user = os.environ.get('EMAIL_USER')
+receiver_email = os.environ.get('RECEIVER_EMAIL')
 email_pass = os.environ['EMAIL_PASS']
 if email_pass is None:
-    print("EMAIL_PASS environment variable not found")
+    print("EMAIL_PASS environment variable not found. Check README")
 
 def check_stock_prices():
     for ticker in stocks_to_monitor:
@@ -47,7 +55,8 @@ def check_stock_prices():
         previous_price_gbp = currency_converter.convert('USD', 'GBP', previous_prices[ticker])
         
         # Compare the current price with the previous price
-        if previous_price_gbp - current_price_gbp >= 0.01:
+        diff = previous_price_gbp - current_price_gbp
+        if diff >= 0.01 or diff <= 0.01:
             send_notification(ticker, current_price_gbp)
         
         # Store the price in USD for the next check
@@ -60,7 +69,7 @@ def send_notification(ticker, price):
         subject = f'Price Drop Alert for {ticker}'
         body = f'The price of {ticker} has dropped to {price} GBP.'
         msg = f'Subject: {subject}\n\n{body}'
-        server.sendmail(email_user, 'gpu2003@gmail.com', msg)
+        server.sendmail(email_user, receiver_email, msg)
 
 # Schedule the check_stock_prices function to run every minute
 schedule.every(1).minutes.do(check_stock_prices)
