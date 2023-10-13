@@ -1,11 +1,14 @@
 # First things first
-1. Create .env file locating it in your current working directory
-2. Make sure .gitignore has .env
-3. Inside .env set your email details: 
+1. "AAPL", "MSFT", "GOOGL", "TSLA", "NKE" and 0.25 are default settings for companies and drop level. You can change those at your own discretion.  
+2. Create .env file locating it in your current working directory
+3. Make sure .gitignore has .env
+4. Inside .env set your email details: 
+
 EMAIL_USER=here_is_your_gmail_account@gmail.com
 RECEIVER_EMAIL=here_is_your_gmail_account@gmail.com
 EMAIL_PASS=here past your pass (see below)
-4. Proceed with adding password inside .env following the procedure below
+
+5. Proceed with adding password inside .env following the procedure below
 
 # Create & use app passwords
 

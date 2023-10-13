@@ -26,53 +26,61 @@ previous_prices = {ticker: 0 for ticker in stocks_to_monitor}
 #Set-up your own environment .env (README)
 email_user = os.environ.get('EMAIL_USER')
 receiver_email = os.environ.get('RECEIVER_EMAIL')
-email_pass = os.environ['EMAIL_PASS']
-if email_pass is None:
+
+#Error Handling (in case user forgets setring-up .env)
+try:
+    email_pass = os.environ['EMAIL_PASS']
+except KeyError:
     print("EMAIL_PASS environment variable not found. Check README")
+    exit(1)
 
-def check_stock_prices():
+# Return a yfinance Ticker object for the given symbol
+def process_tickers():
     for ticker in stocks_to_monitor:
-        stock = yf.Ticker(ticker)
+        stock = yf.Ticker(ticker)  # Directly instantiate yf.Ticker within the loop
+        check_seven_day_avg(stock, ticker)
+        check_one_minute_price_change(stock, ticker)
 
-        # Fetch the last 7 days of price data and calculate the average closing price
-        hist = stock.history(period="7d")
-        seven_day_avg = mean(hist["Close"])
+# Handling the price retrieval and conversion to GBP
+def get_current_price(stock):
+    current_price_usd = stock.info['currentPrice']
+    current_price_gbp = currency_converter.convert('USD', 'GBP', current_price_usd)
+    return current_price_gbp
 
-        # Get today's opening price
-        today_open = hist.iloc[-1]["Open"]
+# Fetch the last 7 days of price data and calculate the average closing price
+def check_seven_day_avg(stock, ticker):
+    hist = stock.history(period="7d")
+    avg = mean(hist["Close"])
+    avg_gbp = currency_converter.convert('USD', 'GBP', avg)
+    
+    current_price_gbp = get_current_price(stock)
+    if current_price_gbp < avg_gbp:
+        subject = f'Price Alert for {ticker}'
+        body = f'The current price of {ticker} is below the 7-day average, at {current_price_gbp} GBP.'
+        send_notification(subject, body)
 
-        # Compare today's opening price with the 7-day average price
-        if today_open < seven_day_avg:
-            send_notification(ticker, today_open)
-        
-        # Fetch the current price 
-        current_price_usd = stock.info['currentPrice']
-        
-        # Convert the price from USD to GBP
-        current_price_gbp = currency_converter.convert('USD', 'GBP', current_price_usd)
-        
-        # Convert the previous price from USD to GBP
-        previous_price_gbp = currency_converter.convert('USD', 'GBP', previous_prices[ticker])
-        
-        # Compare the current price with the previous price
-        diff = previous_price_gbp - current_price_gbp
-        if diff >= 0.01 or diff <= 0.01:
-            send_notification(ticker, current_price_gbp)
+def check_one_minute_price_change(stock, ticker):
+    current_price_gbp = get_current_price(stock)
+    previous_price_gbp = currency_converter.convert('USD', 'GBP', previous_prices[ticker])
+    diff = previous_price_gbp - current_price_gbp
+    if diff >= 0.01:
+        subject = f'Price Drop Alert for {ticker}'
+        body = f'The price of {ticker} has dropped to {current_price_gbp} GBP.'
+        send_notification(subject, body)
         
         # Store the price in USD for the next check
-        previous_prices[ticker] = current_price_usd
+        previous_prices[ticker] = stock.info['currentPrice']  # Fetching the current price in USD again.
 
-def send_notification(ticker, price):
+# Send an email notification
+def send_notification(subject, body):
     with smtplib.SMTP('smtp.gmail.com', 587) as server:
         server.starttls()
         server.login(email_user, email_pass)
-        subject = f'Price Drop Alert for {ticker}'
-        body = f'The price of {ticker} has dropped to {price} GBP.'
         msg = f'Subject: {subject}\n\n{body}'
         server.sendmail(email_user, receiver_email, msg)
 
-# Schedule the check_stock_prices function to run every minute
-schedule.every(1).minutes.do(check_stock_prices)
+# Schedule the process_tickers function to run every minute
+schedule.every(1).minutes.do(process_tickers)
 
 while True:
     schedule.run_pending()
